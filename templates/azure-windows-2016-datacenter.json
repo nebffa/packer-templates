@@ -1,0 +1,35 @@
+{
+    "builders": [
+        {
+            "type": "azure-arm",
+            
+            "resource_group_name": "learning",
+            "storage_account": "vibratopacker",
+        
+            "capture_container_name": "windows-2016-datacenter",
+            "capture_name_prefix": "packer",
+        
+            "os_type": "Windows",
+            "image_publisher": "MicrosoftWindowsServer",
+            "image_offer": "WindowsServer",
+            "image_sku": "2016-Datacenter",
+
+            "communicator": "winrm",
+            "winrm_use_ssl": "true",
+            "winrm_insecure": "true",
+            "winrm_timeout": "3m",
+            "winrm_username": "packer",
+        
+            "location": "West US 2",
+            "vm_size": "Standard_A2"
+        }
+    ],
+    "provisioners": [{
+        "type": "powershell",
+        "inline": [
+            "winrm quickconfig -quiet -force",
+            "if( Test-Path $Env:SystemRoot\\windows\\system32\\Sysprep\\unattend.xml ){ rm $Env:SystemRoot\\windows\\system32\\Sysprep\\unattend.xml -Force}",
+            "& $Env:SystemRoot\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /shutdown /quiet"
+        ]
+    }]
+}
