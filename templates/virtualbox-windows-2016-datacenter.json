@@ -1,43 +1,57 @@
 {
     "builders": [
-      {
-        "type": "virtualbox-iso",
-        "vboxmanage": [
-          [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
-          [ "modifyvm", "{{.Name}}", "--vram", "48" ],
-          [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
-        ],
-        "guest_additions_mode": "{{ user `guest_additions_mode` }}",
-        "guest_os_type": "Windows2016_64",
-        "headless": "{{ user `headless` }}",
-        "iso_url": "{{ user `iso_url` }}",
-        "iso_checksum": "{{ user `iso_checksum` }}",
-        "iso_checksum_type": "md5",
-        "communicator": "winrm",
-        "winrm_username": "vagrant",
-        "winrm_password": "vagrant",
-        "winrm_timeout": "12h",
-        "shutdown_command": "shutdown /r /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-        "shutdown_timeout": "15m",
-        "floppy_files": [
-          "unattend_files/windows_server_2016/Autounattend.xml",
-          "scripts/winrm.ps1",
-          "scripts/packer_shutdown.bat"
-        ]
-      }
+        {
+            "type": "virtualbox-iso",
+            "vboxmanage": [
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--memory",
+                    "2048"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--vram",
+                    "48"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--cpus",
+                    "2"
+                ]
+            ],
+            "guest_additions_mode": "{{ user `guest_additions_mode` }}",
+            "guest_os_type": "Windows2016_64",
+            "headless": "{{ user `headless` }}",
+            "iso_url": "{{ user `iso_url` }}",
+            "iso_checksum": "{{ user `iso_checksum` }}",
+            "iso_checksum_type": "md5",
+            "communicator": "winrm",
+            "winrm_username": "vagrant",
+            "winrm_password": "vagrant",
+            "winrm_timeout": "12h",
+            "shutdown_command": "shutdown /r /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+            "shutdown_timeout": "15m",
+            "floppy_files": [
+                "unattend_files/windows_server_2016/Autounattend.xml",
+                "scripts/winrm.ps1",
+                "scripts/packer_shutdown.bat"
+            ]
+        }
     ],
     "post-processors": [
-      {
-        "type": "vagrant",
-        "keep_input_artifact": true,
-        "output": "windows-2016-{{.Provider}}.box"
-      }
+        {
+            "type": "vagrant",
+            "keep_input_artifact": true,
+            "output": "windows-2016-{{.Provider}}.box"
+        }
     ],
     "variables": {
-      "guest_additions_mode": "attach",
-      "headless": "true",
-      "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
-      "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
+        "guest_additions_mode": "attach",
+        "headless": "true",
+        "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
+        "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
     }
-  }
-  
+}
