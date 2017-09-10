@@ -6,19 +6,30 @@
             "iso_url": "{{ user `iso_url` }}",
             "iso_checksum": "{{ user `iso_checksum` }}",
             "iso_checksum_type": "md5",
+            "cpu": 2,
             "ram_size": 4096,
             "vm_name": "windows-server-2016-packer",
             "communicator": "winrm",
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
-            "winrm_timeout": "12h",
-            "shutdown_command": "C:/Windows/Panther/Unattend/packer_shutdown.bat",
-            "shutdown_timeout": "15m",
+            "winrm_timeout": "15m",
+            "shutdown_command": "A:/packer_shutdown.bat",
+            "shutdown_timeout": "30m",
             "switch_name": "internal_switch",
             "floppy_files": [
                 "unattend_files/windows_server_2016/Autounattend.xml",
-                "scripts/winrm.ps1"
+                "unattend_files/windows_server_2016/Post_Autounattend.xml",
+                "scripts/winrm.ps1",
+                "scripts/packer_shutdown.bat"
             ]
+        }
+    ],
+    "provisioners": [
+        {
+          "type": "powershell",
+          "inline": ["winrm quickconfig -quiet -force"],
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant"
         }
     ],
     "variables": {
