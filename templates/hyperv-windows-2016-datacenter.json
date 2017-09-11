@@ -9,6 +9,7 @@
             "cpu": 2,
             "ram_size": 4096,
             "vm_name": "windows-server-2016-packer",
+            "output_directory": "{{ user `output_directory` }}",
             "communicator": "winrm",
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
@@ -26,14 +27,24 @@
     ],
     "provisioners": [
         {
-          "type": "powershell",
-          "inline": ["winrm quickconfig -quiet -force"],
-          "elevated_user": "vagrant",
-          "elevated_password": "vagrant"
+            "type": "powershell",
+            "inline": [
+                "winrm quickconfig -quiet -force"
+            ],
+            "elevated_user": "vagrant",
+            "elevated_password": "vagrant"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "keep_input_artifact": true,
+            "output": "{{env `IMAGES_DIR`}}/windows-2016-datacenter-hyper-v.box"
         }
     ],
     "variables": {
         "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
-        "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
+        "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso",
+        "output_directory": "{{env `IMAGES_DIR`}}/Packer"
     }
 }
