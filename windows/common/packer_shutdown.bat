@@ -2,4 +2,4 @@ call winrm set winrm/config/service/auth @{Basic="false"}
 call winrm set winrm/config/service @{AllowUnencrypted="false"}
 netsh advfirewall firewall set rule name="WinRM-HTTP" new action=block
 
-C:/windows/system32/sysprep/sysprep.exe /generalize /oobe /unattend:A:/Post_Autounattend.xml /quiet /shutdown
+C:/windows/system32/sysprep/sysprep.exe /generalize /oobe /unattend:C:/Windows/Panther/unattend.xml /quiet /shutdown
