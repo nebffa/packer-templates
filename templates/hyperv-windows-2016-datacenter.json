@@ -21,6 +21,15 @@
             ]
         }
     ],
+    "provisioners": [
+        {
+            "type": "chef-solo",
+            "cookbook_paths": [
+                "cookbooks",
+                "vendor/cookbooks"
+            ]
+        }
+    ],
     "variables": {
         "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
         "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
