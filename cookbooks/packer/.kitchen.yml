@@ -1,7 +1,14 @@
 ---
 driver:
   name: hyperv
-  parent_vhd_folder: 'D:\Images'
+  parent_vhd_folder: 'D:\Images\Packer\Virtual Hard Disks'
+  parent_vhd_name: 'windows-server-2016-packer.vhdx'
+
+transport:
+  username: vagrant
+  password: vagrant
+  connection_retries: 5
+  connection_retry_sleep: 5
 
 provisioner:
   name: chef_zero

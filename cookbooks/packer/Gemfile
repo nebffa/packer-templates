@@ -1,4 +1,14 @@
-# A sample Gemfile
 source 'https://rubygems.org'
 
 gem 'kitchen-hyperv'
+gem 'kitchen-inspec'
+gem 'berkshelf'
+
+# gem 'berkshelf'
+# gem 'chef'
+# gem 'chefspec'
+# gem 'cookstyle'
+# gem 'foodcritic'
+# gem 'rake'
+# gem 'rspec'
+# gem 'winrm'

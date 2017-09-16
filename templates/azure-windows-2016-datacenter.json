@@ -1,7 +1,15 @@
 {
+    "variables": {
+        "client_id": "{{env `AZURE_PACKER_CLIENT_ID`}}",
+        "client_secret": "{{env `AZURE_PACKER_CLIENT_SECRET`}}",
+        "subscription_id": "{{env `AZURE_SUBSCRIPTION_ID`}}"
+    },
     "builders": [
         {
             "type": "azure-arm",
+            "client_id": "{{ user `client_id` }}",
+            "client_secret": "{{ user `client_secret` }}",
+            "subscription_id": "{{ user `subscription_id` }}",
             "resource_group_name": "learning",
             "storage_account": "vibratopacker",
             "capture_container_name": "windows-2016-datacenter",
