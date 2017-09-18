@@ -1,14 +1,11 @@
 ---
 driver:
-  name: hyperv
-  parent_vhd_folder: 'D:\Images\Packer\Virtual Hard Disks'
-  parent_vhd_name: 'windows-server-2016-packer.vhdx'
+  name: azurerm
 
-transport:
-  username: vagrant
-  password: vagrant
-  connection_retries: 5
-  connection_retry_sleep: 5
+driver_config:
+  subscription_id: '02555250-2f8d-4ad6-babb-40a853116d2b'
+  location: 'southeastasia'
+  machine_size: 'Standard_A3'
 
 provisioner:
   name: chef_zero
@@ -19,6 +16,10 @@ verifier:
 
 platforms:
   - name: windows-2016-datacenter
+    driver_config:
+      image_urn: MicrosoftWindowsServer:WindowsServer:2016-Datacenter:latest
+    transport:
+      name: winrm
 
 suites:
   - name: default
