@@ -26,7 +26,7 @@
             "winrm_timeout": "3m",
             "winrm_username": "packer",
             "location": "southeastasia",
-            "vm_size": "Basic_A2"
+            "vm_size": "Basic_A3"
         }
     ],
     "provisioners": [
