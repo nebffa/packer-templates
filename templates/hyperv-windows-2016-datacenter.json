@@ -26,20 +26,14 @@
         }
     ],
     "provisioners": [
-        {
-            "type": "powershell",
-            "inline": [
-                "winrm quickconfig -quiet -force"
-            ],
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant"
-        },
 	    {
             "type": "chef-solo",
             "cookbook_paths": [
-                "cookbooks",
+                "cookbooks", 
                 "cookbooks/vendor"
-            ]
+            ],
+            "run_list": ["packer::default"],
+            "guest_os_type": "windows"
         }
     ],
     "post-processors": [
