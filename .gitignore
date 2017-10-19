@@ -33,3 +33,4 @@ packer_cache/
 # End of https://www.gitignore.io/api/packer,visualstudiocode
 
 cookbooks/vendor
+bypass_winrm_filecopy

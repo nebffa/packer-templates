@@ -14,23 +14,30 @@
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
             "winrm_timeout": "15m",
-            "shutdown_command": "A:/packer_shutdown.bat",
+            "shutdown_command": "A:/packer_shutdown.ps1",
             "shutdown_timeout": "30m",
             "switch_name": "internal_switch",
             "floppy_files": [
                 "unattend_files/windows_server_2016/Autounattend.xml",
                 "unattend_files/windows_server_2016/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
-                "scripts/packer_shutdown.bat"
+                "scripts/packer_shutdown.ps1",
+                "bypass_winrm_filecopy/cookbooks.zip"
             ]
         }
     ],
     "provisioners": [
-	    {
+        {
+            "type": "powershell",
+            "inline": [
+                "Expand-Archive -Path A:/cookbooks.zip -DestinationPath C:/Chef -Force"
+            ]
+        },
+        {
             "type": "chef-solo",
-            "cookbook_paths": [
-                "cookbooks", 
-                "cookbooks/vendor"
+            "remote_cookbook_paths": [
+                "C:/Chef/cookbooks", 
+                "C:/Chef/cookbooks/vendor"
             ],
             "run_list": ["packer::default"],
             "guest_os_type": "windows"
@@ -40,10 +47,11 @@
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "{{env `IMAGES_DIR`}}/windows-2016-datacenter-hyper-v.box"
+            "output": "{{ user `images_dir`}}/windows-2016-datacenter-hyper-v.box"
         }
     ],
     "variables": {
+        "images_dir": "{{env `IMAGES_DIR`}}",
         "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
         "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso",
         "output_directory": "{{env `IMAGES_DIR`}}/Packer"
