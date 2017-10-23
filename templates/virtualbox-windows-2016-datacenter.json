@@ -47,7 +47,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "windows-2016-{{.Provider}}.box"
+            "output": "{{ user `images_dir`}}/{{.Provider}}-windows-2016-datacenter.box"
         }
     ],
     "variables": {

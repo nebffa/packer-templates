@@ -47,7 +47,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "{{ user `images_dir`}}/windows-2016-datacenter-hyper-v.box"
+            "output": "{{ user `images_dir`}}/{{.Provider}}-windows-2016-datacenter.box"
         }
     ],
     "variables": {

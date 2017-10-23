@@ -38,15 +38,33 @@
                 "unattend_files/windows_10/Autounattend.xml",
                 "unattend_files/windows_10/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
-                "scripts/packer_shutdown.ps1"
+                "scripts/packer_shutdown.ps1",
+                "bypass_winrm_filecopy/cookbooks.zip"
             ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "powershell",
+            "inline": [
+                "Expand-Archive -Path A:/cookbooks.zip -DestinationPath C:/Chef -Force"
+            ]
+        },
+        {
+            "type": "chef-solo",
+            "remote_cookbook_paths": [
+                "C:/Chef/cookbooks", 
+                "C:/Chef/cookbooks/vendor"
+            ],
+            "run_list": ["packer::default"],
+            "guest_os_type": "windows"
         }
     ],
     "post-processors": [
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "{{ user `images_dir` }}/windows-10-{{.Provider}}.box"
+            "output": "{{ user `images_dir` }}/{{.Provider}}-windows-10.box"
         }
     ],
     "variables": {

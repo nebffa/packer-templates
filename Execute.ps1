@@ -24,5 +24,10 @@ if (($BuildType -eq 'HyperV') -or ($BuildType -eq 'VirtualBox'))
     Compress-Archive -Path 'cookbooks' `
         -DestinationPath "./bypass_winrm_filecopy/cookbooks.zip" `
         -Force
-    packer build -force "$PSScriptRoot/templates/$($BuildType.ToLower())-$($OperatingSystem.ToLower()).json"
+
+    $boxName = "$($BuildType.ToLower())-$($OperatingSystem.ToLower())"
+    packer build -force -machine-readable "$PSScriptRoot/templates/$boxName.json"
+
+    Write-Output "Adding the freshly created box to Vagrant..."
+    vagrant box add (Join-Path $env:IMAGES_DIR "$boxName.box") --name $OperatingSystem.ToLower() --force
 }
