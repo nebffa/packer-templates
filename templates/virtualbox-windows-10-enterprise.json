@@ -1,3 +1,5 @@
+has a problem with network location cause of https://www.experts-exchange.com/questions/27532568/Sysprep-Answer-File-for-Windows-7-how-to-prevent-Set-Network-Location-dialog-box-appearing-when-you-first-log-on-to-a-domain-joined-Windows-7-based-client-computer.html
+fix it before the next go around
 {
     "builders": [
         {
@@ -23,7 +25,7 @@
                 ]
             ],
             "guest_additions_mode": "{{ user `guest_additions_mode` }}",
-            "guest_os_type": "Windows2016_64",
+            "guest_os_type": "Windows10_64",
             "headless": "{{ user `headless` }}",
             "iso_url": "{{ user `iso_url` }}",
             "iso_checksum": "{{ user `iso_checksum` }}",
@@ -35,8 +37,8 @@
             "shutdown_command": "A:/packer_shutdown.bat",
             "shutdown_timeout": "15m",
             "floppy_files": [
-                "unattend_files/windows_server_2016/Autounattend.xml",
-                "unattend_files/windows_server_2016/Post_Autounattend.xml",
+                "unattend_files/windows_10/Autounattend.xml",
+                "unattend_files/windows_10/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
                 "scripts/packer_shutdown.bat"
             ]
@@ -46,13 +48,13 @@
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "windows-2016-{{.Provider}}.box"
+            "output": "{{env `IMAGES_DIR`}}/windows-10-{{.Provider}}.box"
         }
     ],
     "variables": {
         "guest_additions_mode": "attach",
         "headless": "true",
-        "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
-        "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
+        "iso_checksum": "f4f85d77516721d9a19ca866172a5ecb",
+        "iso_url": "{{env `IMAGES_DIR`}}/Windows_10_Enterprise.iso"
     }
 }
