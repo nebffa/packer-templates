@@ -32,13 +32,14 @@
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
             "winrm_timeout": "12h",
-            "shutdown_command": "A:/packer_shutdown.bat",
+            "shutdown_command": "A:/packer_shutdown.ps1",
             "shutdown_timeout": "15m",
             "floppy_files": [
                 "unattend_files/windows_server_2016/Autounattend.xml",
                 "unattend_files/windows_server_2016/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
-                "scripts/packer_shutdown.bat"
+                "scripts/packer_shutdown.ps1",
+                "bypass_winrm_filecopy/cookbooks.zip"
             ]
         }
     ],
