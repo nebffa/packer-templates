@@ -1,11 +1,21 @@
-move /Y C:\Users\vagrant\VBoxGuestAdditions.iso C:\Windows\Temp
-cmd /c ""C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\VBoxGuestAdditions.iso -oC:\Windows\Temp\virtualbox"
-cmd /c C:\Windows\Temp\virtualbox\cert\VBoxCertUtil add-trusted-publisher C:\Windows\Temp\virtualbox\cert\vbox-sha1.cer --root C:\Windows\Temp\virtualbox\cert\vbox-sha1.cer
-cmd /c C:\Windows\Temp\virtualbox\cert\VBoxCertUtil add-trusted-publisher C:\Windows\Temp\virtualbox\cert\vbox-sha256.cer --root C:\Windows\Temp\virtualbox\cert\vbox-sha256.cer
-cmd /c C:\Windows\Temp\virtualbox\cert\VBoxCertUtil add-trusted-publisher C:\Windows\Temp\virtualbox\cert\vbox-sha256-r3.cer --root C:\Windows\Temp\virtualbox\cert\vbox-sha256-r3.cer
-cmd /c C:\Windows\Temp\virtualbox\VBoxWindowsAdditions.exe /S
+$ErrorActionPreference = 'Stop'
 
 
-D:\VBoxWindowsAdditions-amd64.exe /S /extract 
+D:\cert\VBoxCertUtil `
+    add-trusted-publisher D:\cert\vbox-sha1.cer `
+    --root D:\cert\vbox-sha1.cer
+D:\cert\VBoxCertUtil `
+    add-trusted-publisher D:\cert\vbox-sha256.cer `
+    --root D:\cert\vbox-sha256.cer
+D:\cert\VBoxCertUtil `
+    add-trusted-publisher D:\cert\vbox-sha256-r3.cer `
+    --root D:\cert\vbox-sha256-r3.cer
+
+
+#D:\VBoxWindowsAdditions.exe /S
+# something with start-process to make sure it waits, cause the exe exits immediately
+Start-Process D:\VBoxWindowsAdditions-amd64.exe /S /extract 
+
+
 
 

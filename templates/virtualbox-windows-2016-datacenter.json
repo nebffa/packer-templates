@@ -32,7 +32,7 @@
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
             "winrm_timeout": "12h",
-            "shutdown_command": "A:/packer_shutdown.ps1",
+            "shutdown_command": "powershell.exe -ExecutionPolicy Bypass -File A:/packer_shutdown.ps1",
             "shutdown_timeout": "15m",
             "floppy_files": [
                 "unattend_files/windows_server_2016/Autounattend.xml",

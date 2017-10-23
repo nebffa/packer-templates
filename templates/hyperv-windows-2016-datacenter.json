@@ -14,7 +14,7 @@
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
             "winrm_timeout": "15m",
-            "shutdown_command": "A:/packer_shutdown.ps1",
+            "shutdown_command": "powershell.exe -ExecutionPolicy Bypass -File A:/packer_shutdown.ps1",
             "shutdown_timeout": "30m",
             "switch_name": "internal_switch",
             "floppy_files": [
