@@ -39,7 +39,31 @@
                 "unattend_files/windows_server_2016/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
                 "scripts/packer_shutdown.ps1",
+                "scripts/install_virtualbox_guest_additions.ps1",
                 "bypass_winrm_filecopy/cookbooks.zip"
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "powershell",
+            "inline": [
+                "Expand-Archive -Path A:/cookbooks.zip -DestinationPath C:/Chef -Force"
+            ]
+        },
+        {
+            "type": "chef-solo",
+            "remote_cookbook_paths": [
+                "C:/Chef/cookbooks", 
+                "C:/Chef/cookbooks/vendor"
+            ],
+            "run_list": ["packer::default"],
+            "guest_os_type": "windows"
+        },
+        {
+            "type": "powershell",
+            "inline": [
+                "A:/install_virtualbox_guest_additions.ps1"
             ]
         }
     ],
@@ -54,6 +78,6 @@
         "guest_additions_mode": "attach",
         "headless": "true",
         "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
-        "iso_url": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
+        "images_dir": "{{env `IMAGES_DIR`}}/Windows_Server_2016.iso"
     }
 }

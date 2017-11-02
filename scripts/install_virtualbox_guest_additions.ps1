@@ -1,21 +1,23 @@
 $ErrorActionPreference = 'Stop'
 
 
-D:\cert\VBoxCertUtil `
-    add-trusted-publisher D:\cert\vbox-sha1.cer `
-    --root D:\cert\vbox-sha1.cer
-D:\cert\VBoxCertUtil `
-    add-trusted-publisher D:\cert\vbox-sha256.cer `
-    --root D:\cert\vbox-sha256.cer
-D:\cert\VBoxCertUtil `
-    add-trusted-publisher D:\cert\vbox-sha256-r3.cer `
-    --root D:\cert\vbox-sha256-r3.cer
+E:\cert\VBoxCertUtil.exe `
+    add-trusted-publisher E:\cert\vbox-sha1.cer `
+    --root E:\cert\vbox-sha1.cer
+E:\cert\VBoxCertUtil.exe `
+    add-trusted-publisher E:\cert\vbox-sha256.cer `
+    --root E:\cert\vbox-sha256.cer
+E:\cert\VBoxCertUtil.exe `
+    add-trusted-publisher E:\cert\vbox-sha256-r3.cer `
+    --root E:\cert\vbox-sha256-r3.cer
 
+Start-Process `
+    -FilePath E:\VBoxWindowsAdditions-amd64.exe `
+    -ArgumentList '/S' `
+    -Wait `
+    -NoNewWindow
 
-#D:\VBoxWindowsAdditions.exe /S
-# something with start-process to make sure it waits, cause the exe exits immediately
-Start-Process D:\VBoxWindowsAdditions-amd64.exe /S /extract 
-
-
-
-
+if ($LASTEXITCODE -ne 0)
+{
+    throw $LASTEXITCODE
+}

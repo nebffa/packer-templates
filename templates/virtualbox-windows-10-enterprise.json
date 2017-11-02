@@ -39,6 +39,7 @@
                 "unattend_files/windows_10/Post_Autounattend.xml",
                 "scripts/winrm.ps1",
                 "scripts/packer_shutdown.ps1",
+                "scripts/install_virtualbox_guest_additions.ps1",
                 "bypass_winrm_filecopy/cookbooks.zip"
             ]
         }
@@ -58,13 +59,19 @@
             ],
             "run_list": ["packer::default"],
             "guest_os_type": "windows"
+        },
+        {
+            "type": "powershell",
+            "inline": [
+                "A:/install_virtualbox_guest_additions.ps1"
+            ]
         }
     ],
     "post-processors": [
         {
             "type": "vagrant",
             "keep_input_artifact": true,
-            "output": "{{ user `images_dir` }}/{{.Provider}}-windows-10.box"
+            "output": "{{ user `images_dir` }}/{{.Provider}}-windows-10-enterprise.box"
         }
     ],
     "variables": {

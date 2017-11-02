@@ -97,18 +97,22 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                   <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File A:\winrm.ps1</CommandLine>
+                    <CommandLine>cmd.exe /c reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v ExecutionPolicy /t REG_SZ /d Unrestricted /f</CommandLine>
                     <Order>1</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File A:\winrm.ps1</CommandLine>
+                    <Order>2</Order>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <ShowWindowsLive>false</ShowWindowsLive>
         </component>
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <InputLocale>en-AU</InputLocale>
-            <SystemLocale>en-AU</SystemLocale>
-            <UILanguage>en-AU</UILanguage>
-            <UILanguageFallback>en-AU</UILanguageFallback>
-            <UserLocale>en-AU</UserLocale>
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale>en-US</UserLocale>
         </component>
     </settings>
     <settings pass="specialize">
