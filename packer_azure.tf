@@ -24,3 +24,10 @@ resource "azurerm_storage_account" "packer" {
   location            = "${var.location}"
   account_type        = "Standard_LRS"
 }
+
+resource "azurerm_storage_container" "packer" {
+  name = "packer"
+  storage_account_name = "${azurerm_storage_account.packer.name}"
+  resource_group_name = "${azurerm_resource_group.learning.name}"
+  container_access_type = "private"
+}
