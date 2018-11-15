@@ -20,8 +20,10 @@ berks vendor `
     --berksfile="$PSScriptRoot/cookbooks/packer/Berksfile" `
     'cookbooks/vendor'
 
+New-Item "$PSScriptRoot/bypass_winrm_filecopy" -ItemType Directory -ErrorAction SilentlyContinue
+
 Compress-Archive -Path 'cookbooks' `
-    -DestinationPath "./bypass_winrm_filecopy/cookbooks.zip" `
+    -DestinationPath "$PSScriptRoot/bypass_winrm_filecopy/cookbooks.zip" `
     -Force
 
 $templateName = "$($BuildType.ToLower())_$($OperatingSystem.ToLower())"
