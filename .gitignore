@@ -35,3 +35,5 @@ packer_cache/
 cookbooks/vendor
 bypass_winrm_filecopy
 *.zip
+
+output-virtualbox-iso/

@@ -24,9 +24,9 @@ function Import-CatalogCertificate
 # Download Paravirtual drivers from https://launchpad.net/kvm-guest-drivers-windows/+download
 Write-Output 'Downloading KVM drivers to get the Paravirtualized Network drivers.'
 $downloadPath = Join-Path (Resolve-Path '~/Downloads') 'virtio-win.iso'
-Invoke-WebRequest `
-    -Uri 'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso' `
-    -OutFile $downloadPath
+(New-Object System.Net.WebClient).DownloadFile(
+    'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso', 
+    $downloadPath)
 
 Write-Output 'Mounting KVM drivers ISO...'
 $mountedVolume = Mount-DiskImage $downloadPath -PassThru | Get-Volume
