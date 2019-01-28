@@ -37,3 +37,4 @@ bypass_winrm_filecopy
 *.zip
 
 output-virtualbox-iso/
+output-parallels-iso/
