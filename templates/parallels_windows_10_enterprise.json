@@ -1,43 +1,20 @@
 {
     "builders": [
+        
         {
-            "type": "virtualbox-iso",
-            "vboxmanage": [
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--memory",
-                    "6144"
-                ],
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--vram",
-                    "48"
-                ],
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--cpus",
-                    "8"
-                ],
-                [
-                    "sharedfolder", 
-                    "add", "{{.Name}}", "--name", "UserWorkDir", 
-                    "--hostpath", "{{ user `user_work_dir` }}"
-                ]
-            ],
+            "type": "parallels-iso",
             "disk_size": 100000,
-            "guest_additions_mode": "attach",
-            "guest_os_type": "Windows2016_64",
-            "headless": "true",
+            "cpus": 8,
+            "guest_os_type": "win-10",
+            "memory": 6144,
+            "parallels_tools_mode": "attach",
+            "parallels_tools_flavor": "win",
             "iso_url": "{{ user `images_dir` }}/{{ user `operating_system_name` }}.iso",
             "iso_checksum": "{{ user `iso_checksum` }}",
             "iso_checksum_type": "md5",
             "communicator": "winrm",
             "winrm_username": "vagrant",
             "winrm_password": "vagrant",
-            "winrm_timeout": "12h",
             "shutdown_command": "powershell.exe -ExecutionPolicy Bypass -File A:/packer_shutdown.ps1",
             "shutdown_timeout": "15m",
             "floppy_files": [
@@ -70,12 +47,6 @@
         {
             "type": "powershell",
             "inline": [
-                "A:/install_virtualbox_guest_additions.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "inline": [
                 "A:/install_kvm_drivers.ps1"
             ]
         }
@@ -88,9 +59,9 @@
         }
     ],
     "variables": {
-        "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
+        "iso_checksum": "AB19351F8295BFDAF245BD4441FD73E3",
         "images_dir": "{{env `IMAGES_DIR`}}",
         "user_work_dir": "{{env `USER_WORK_DIR`}}",
-        "operating_system_name": "null"
+        "operating_system_name": "windows_10_enterprise"
     }
 }
